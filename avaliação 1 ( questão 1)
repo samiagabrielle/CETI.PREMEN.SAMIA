@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class SistemaEscola {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double[] notas = new double[8];
+
+        System.out.println("=== Sistema Escolar - Cálculo de Médias ===");
+
+        // Entrada das 8 notas
+        for (int i = 0; i < 8; i++) {
+            double nota;
+            do {
+                System.out.print("Digite a nota " + (i + 1) + " (0 a 10): ");
+                nota = sc.nextDouble();
+                if (nota < 0 || nota > 10) {
+                    System.out.println("Valor inválido! Digite novamente.");
+                }
+            } while (nota < 0 || nota > 10);
+
+            notas[i] = nota;
+        }
+
+        // Cálculo das médias bimestrais (cada bimestre = 2 notas)
+        double[] mediasBimestrais = new double[4];
+        int index = 0;
+
+        for (int i = 0; i < 4; i++) {
+            mediasBimestrais[i] = (notas[index] + notas[index + 1]) / 2.0;
+            index += 2;
+        }
+
+        // Cálculo da média final
+        double soma = 0;
+        for (double media : mediasBimestrais) {
+            soma += media;
+        }
+        double mediaFinal = soma / 4.0;
+
+        // Exibição dos resultados
+        System.out.println("\n=== Resultados ===");
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("Média do %dº bimestre: %.2f%n", (i + 1), mediasBimestrais[i]);
+        }
+
+        System.out.printf("\nMédia Final: %.2f%n", mediaFinal);
+
+        if (mediaFinal >= 7.0) {
+            System.out.println("Situação: APROVADO");
+        } else {
+            System.out.println("Situação: REPROVADO");
+        }
+    }
+}
